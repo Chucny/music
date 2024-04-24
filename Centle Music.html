@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Copyright 2024 Chucny (GitHub Account)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. --!>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centle Music</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #D2B48C;
+            background-image: 
+                linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.2) 45%, rgba(255,255,255,0.2) 55%, transparent 55%),
+                linear-gradient(45deg, rgba(255,255,255,0.2) 45%, transparent 45%, transparent 55%, rgba(255,255,255,0.2) 55%);
+            background-size: 40px 40px;
+        }
+
+        .player {
+            width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: grey;
+        }
+
+        .cd-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+        }
+
+        .cd {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border-radius: 100%;
+            background-color: #f3f3f3;
+            border: 10px solid #ddd;
+            overflow: hidden; /* Ensures the hole inside the CD is visible */
+        }
+
+        .hole {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: white;
+            border: 10px solid #ddd;
+        }
+
+        .spin {
+            animation: spin 5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .menu {
+            margin-bottom: 20px;
+        }
+
+        select, button {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .custom-file-upload {
+            position: relative;
+            overflow: hidden;
+            color: white;
+            background-color: #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .custom-file-upload input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="player">
+        <div class="logo" style="color:grey;"><strong>Centle</strong> Music</div>
+        <div class="cd-container">
+            <div class="cd spin">
+                <div class="hole"></div>
+            </div>
+        </div>
+        <audio id="audioPlayer" controls autoplay>
+            <source src="" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <div class="menu">
+            <label for="musicSelect" class="custom-file-upload">Select Music<input type="file" id="musicSelect" style="display:none;" onchange="playMusic()"></label>
+        </div>
+    </div>
+
+    <script>
+        function playMusic() {
+            const audioPlayer = document.getElementById("audioPlayer");
+            const musicSelect = document.getElementById("musicSelect");
+            const selectedMusic = musicSelect.files[0];
+
+            if (selectedMusic) {
+                const objectURL = URL.createObjectURL(selectedMusic);
+                audioPlayer.src = objectURL;
+            } else {
+                alert("Please select a music file.");
+            }
+        }
+    </script>
+</body>
+</html>
